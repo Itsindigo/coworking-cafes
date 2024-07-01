@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "../",
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2023",
@@ -30,5 +31,5 @@
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
     
   },
-  "include": ["src"]
+  "include": ["./client/src", "../server"]
 }
