@@ -12,8 +12,11 @@ export const Navbar: React.FC = () => {
             <SVGImage src="./src/assets/favicon.svg" />
           </Link>
         </div>
+        <div className="text-white">Placeholder Title</div>
         <div className="flex-shrink-0">
-          <LinkButton to="/user/login">Login</LinkButton>
+          <LinkButton className="bg-black" to="/user/login">
+            Login
+          </LinkButton>
         </div>
       </div>
     </nav>
