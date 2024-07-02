@@ -3,7 +3,6 @@ import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/react-query";
 import { trpc } from "../trpc";
-import "../App.css";
 import { TanStackRouterDevtools } from "../components";
 
 export const Route = createRootRoute({
