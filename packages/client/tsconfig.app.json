@@ -28,8 +28,8 @@
     "outDir": "dist",                                   /* Specify an output folder for all emitted files. */
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    
+    "forceConsistentCasingInFileNames": true,           /* Ensure that casing is correct in imports. */
+    "types": ["node"]
   },
   "include": ["./client/src", "../server"]
 }
