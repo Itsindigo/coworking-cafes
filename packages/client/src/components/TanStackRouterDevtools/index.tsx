@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { TanStackRouterDevtools as TSRD } from "@tanstack/router-devtools";
 
-const TanStackRouterDevtools = () => {
+export const TanStackRouterDevtools = () => {
   process.env.NODE_ENV === "production"
     ? () => null // Render nothing in production
     : React.lazy(() =>

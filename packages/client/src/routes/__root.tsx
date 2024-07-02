@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/react-query";
 import { trpc } from "../trpc";
 import "../App.css";
-import TanStackRouterDevtools from "../components/TanStackRouterDevTools";
+import { TanStackRouterDevtools } from "../components";
 
 export const Route = createRootRoute({
   component: () => {
@@ -29,12 +29,13 @@ export const Route = createRootRoute({
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
             <div className="p-2 flex gap-2">
-              <Link to="/" className="[&.active]:font-bold">
+              {/* This is how you do links */}
+              {/* <Link to="/" className="[&.active]:font-bold">
                 Home
               </Link>{" "}
               <Link to="/about" className="[&.active]:font-bold">
                 About
-              </Link>
+              </Link> */}
             </div>
             <Outlet />
             <TanStackRouterDevtools />
