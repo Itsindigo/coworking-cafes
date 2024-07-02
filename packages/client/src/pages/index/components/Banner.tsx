@@ -3,7 +3,6 @@ import { HeroBanner, HighContrastText } from "../../../components";
 
 export const IndexBanner = () => (
   <HeroBanner
-    backgroundImage="/src/assets/coworking_banner.png"
     Header={
       <HighContrastText
         classNames="mt-16 ml-8 md:mt-32 md:ml-32 mr-8 text-xl"
