@@ -7,23 +7,11 @@ export const Route = createLazyFileRoute("/")({
 });
 
 export default function Index() {
-  const userQuery = trpc.userList.useQuery();
+  // const userQuery = trpc.userList.useQuery();
 
-  if (userQuery.isLoading) {
-    return <p>Loading...</p>;
-  }
+  // if (userQuery.isLoading) {
+  //   return <p>Loading...</p>;
+  // }
 
-  return (
-    <div>
-      {userQuery.data?.length ? (
-        <ul>
-          {userQuery.data.map((user) => (
-            <li key={user.id}>{user.name}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No users found</p>
-      )}
-    </div>
-  );
+  return <h1 className="text-3xl font-bold underline">Hello World</h1>;
 }
