@@ -1,6 +1,6 @@
 import React from "react";
-import HighContrastText from "../HighContrastText/HighContrastText";
-import HeroBanner from "./HeroBanner";
+import HighContrastText from "../HighContrastText";
+import HeroBanner from ".";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {

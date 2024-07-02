@@ -5,7 +5,7 @@ interface HighContrastTextProps {
   classNames?: string;
 }
 
-const HighContrastText: React.FC<HighContrastTextProps> = ({
+export const HighContrastText: React.FC<HighContrastTextProps> = ({
   text,
   classNames,
 }) => {

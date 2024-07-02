@@ -27,14 +27,8 @@ export const Route = createRootRoute({
       <>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
-            <div className="p-2 flex gap-2">
-              {/* This is how you do links */}
-              {/* <Link to="/" className="[&.active]:font-bold">
-                Home
-              </Link>{" "}
-              <Link to="/about" className="[&.active]:font-bold">
-                About
-              </Link> */}
+            <div className="p-2 flex justify-end gap-2">
+              <Link to="/">Sign In</Link>
             </div>
             <Outlet />
             <TanStackRouterDevtools />

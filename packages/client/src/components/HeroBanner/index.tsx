@@ -6,14 +6,14 @@ interface HeroBannerProps {
   Subheader?: React.ReactNode;
 }
 
-const HeroBanner: React.FC<HeroBannerProps> = ({
+export const HeroBanner: React.FC<HeroBannerProps> = ({
   backgroundImage,
   Header,
   Subheader,
 }) => {
   return (
     <div
-      className="min-h-64 w-full h-[600px] flex flex-col items-start text-center bg-cover bg-center"
+      className="min-h-64 w-full h-[300px] md:h-[450px] flex flex-col items-start text-start bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {Header}
