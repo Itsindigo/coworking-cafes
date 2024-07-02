@@ -9,7 +9,6 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/components/**/*.stories.tsx"],
   // Optional
   addons: [
-    "@storybook/addon-onboarding",
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
