@@ -1,7 +1,12 @@
 import React from "react";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { trpc } from "../trpc";
 
-export default function HomePage() {
+export const Route = createLazyFileRoute("/")({
+  component: Index,
+});
+
+export default function Index() {
   const userQuery = trpc.userList.useQuery();
 
   if (userQuery.isLoading) {
