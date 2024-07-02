@@ -3,7 +3,7 @@ import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/react-query";
 import { trpc } from "../trpc";
-import { LinkButton, TanStackRouterDevtools } from "../components";
+import { LinkButton, Navbar, TanStackRouterDevtools } from "../components";
 
 export const Route = createRootRoute({
   component: () => {
@@ -27,9 +27,10 @@ export const Route = createRootRoute({
       <>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
-            <div className="p-2 flex justify-end gap-2">
+            <Navbar />
+            {/* <div className="p-2 flex justify-end gap-2">
               <LinkButton to="/">Sign In</LinkButton>
-            </div>
+            </div> */}
             <Outlet />
             <TanStackRouterDevtools />
           </QueryClientProvider>
