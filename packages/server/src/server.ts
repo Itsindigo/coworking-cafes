@@ -1,5 +1,4 @@
 import Koa from "koa";
-import Router from "@koa/router";
 import logger from "./logger.js";
 import loggerMiddleware from "koa-pino-logger";
 import bodyParser from "koa-bodyparser";

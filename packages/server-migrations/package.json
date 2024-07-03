@@ -1,0 +1,19 @@
+{
+  "name": "@coworking-cafes/server-migrations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "migrate": "DATABASE_URL=$(node scripts/db_connection.js) && node-pg-migrate up",
+    "migrate:create": "node-pg-migrate create"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "env-var": "^7.5.0",
+    "node-pg-migrate": "^7.5.2"
+  }
+}
