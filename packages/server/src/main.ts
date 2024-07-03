@@ -4,7 +4,7 @@ import logger from "./logger.js";
 async function main() {
   const PORT = 4444;
   const server = await createApp();
-  server
+  return server
     .listen(PORT, () => {
       logger.info(`Started server on ${PORT}`);
     })

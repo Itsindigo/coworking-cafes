@@ -14,6 +14,9 @@ $ cat env.example > .server.env
 $ docker-compose --env-file .server.env up -d
 ```
 
+## Migrations
+
+`pnpm run -r migrate`
 
 # Where
 
