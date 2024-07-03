@@ -6,20 +6,16 @@ import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
 import { createKoaMiddleware } from "./koa_middleware/trpc.js";
 import { appRouter } from "./trpc/server.js";
+import { createPool } from "slonik";
+import { getConfig } from "./config.js";
+import { createHealthRouter } from "./routers/health.js";
 
-const createHelloWorldRouter = (app: Koa) => {
-  let hwRouter = new Router({ prefix: "/api" });
+const createApp = async () => {
+  const {
+    db: { uri },
+  } = getConfig();
 
-  hwRouter.get("/", (ctx, next) => {
-    ctx.body = "hello worldddd";
-    ctx.status = 200;
-  });
-  app.use(hwRouter.routes()).use(hwRouter.allowedMethods());
-
-  return hwRouter;
-};
-
-const createApp = () => {
+  const pool = await createPool(uri);
   const app = new Koa();
 
   app.use(cors());
@@ -32,7 +28,7 @@ const createApp = () => {
     })
   );
 
-  createHelloWorldRouter(app);
+  createHealthRouter(app, pool);
 
   return app;
 };

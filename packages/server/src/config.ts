@@ -13,20 +13,30 @@ const getDbUri = () => {
   return `postgres://${user}:${password}@${host}:${post}/${name}`;
 };
 
-let config = undefined;
-
-const getConfig = () => ({
+interface AppConfig {
   crypto: {
-    secretKey: env.get("CRYPTO_SECRET_KEY").required().asString(),
-  },
+    secretKey: string;
+  };
   db: {
-    uri: getDbUri(),
-  },
-});
-
-if (!config) {
-  config = getConfig();
-  logger.info("Loaded and validated config. 💻");
+    uri: string;
+  };
 }
 
-export default config;
+let __config: AppConfig;
+
+export const getConfig = (): AppConfig => {
+  if (__config) {
+    return __config;
+  }
+
+  __config = {
+    crypto: {
+      secretKey: env.get("CRYPTO_SECRET_KEY").required().asString(),
+    },
+    db: {
+      uri: getDbUri(),
+    },
+  };
+  logger.info("Loaded and validated config. 💻");
+  return __config;
+};
