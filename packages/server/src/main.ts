@@ -13,7 +13,7 @@ async function main() {
       process.exit(0);
     })
     .on("error", (err) => {
-      logger.error("Server encountered error", err);
+      logger.error(`Server encountered error: ${err}`);
       process.exit(1);
     });
 }
