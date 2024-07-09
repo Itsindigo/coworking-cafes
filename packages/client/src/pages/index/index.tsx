@@ -2,7 +2,7 @@ import React from "react";
 import { IndexBanner } from "./components/Banner";
 import { FindCoworkingSpace } from "./containers/FindCoworkingSpace";
 
-export const IndexPage = () => {
+const IndexPage = (): React.JSX.Element => {
   return (
     <>
       <div className="mb-4">
@@ -14,3 +14,5 @@ export const IndexPage = () => {
     </>
   );
 };
+
+export default IndexPage;
