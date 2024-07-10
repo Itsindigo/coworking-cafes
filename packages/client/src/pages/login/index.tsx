@@ -16,7 +16,7 @@ const LoginPage = (): React.JSX.Element => {
   };
 
   const onGoogleLoginFail = () => {
-    console.log("Login failed");
+    setError("Error logging in with Google. Please try again.");
   };
 
   return (
