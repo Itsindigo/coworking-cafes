@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/react-query";
 import { trpc } from "../trpc";
-import { LinkButton, Navbar, TanStackRouterDevtools } from "../components";
+import { Navbar, TanStackRouterDevtools } from "../components";
+import { GOOGLE_CLIENT_ID } from "../constants";
 
 export const Route = createRootRoute({
   component: () => {
@@ -24,18 +26,18 @@ export const Route = createRootRoute({
     );
 
     return (
-      <>
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
             <Navbar />
             {/* <div className="p-2 flex justify-end gap-2">
               <LinkButton to="/">Sign In</LinkButton>
-            </div> */}
+              </div> */}
             <Outlet />
             <TanStackRouterDevtools />
           </QueryClientProvider>
         </trpc.Provider>
-      </>
+      </GoogleOAuthProvider>
     );
   },
 });

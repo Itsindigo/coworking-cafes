@@ -5,17 +5,21 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/main.ts"
+    "dev": "nodemon --exec NODE_NO_WARNINGS=1 node --loader ts-node/esm src/main.ts --project ./tsconfig.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/koa": "^2.15.0",
     "@types/koa-pino-logger": "^3.0.4",
     "@types/koa__cors": "^5.0.0",
     "@types/koa__router": "^12.0.4",
+    "http-terminator": "^3.2.0",
     "node-pg-migrate": "^7.5.2",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
     "tsx": "^4.16.0",
     "typescript": "^5.5.3"
   },
@@ -26,10 +30,13 @@
     "@types/koa-bodyparser": "^4.3.12",
     "dotenv": "^16.4.5",
     "env-var": "^7.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
     "koa-pino-logger": "^4.0.0",
     "koa-router": "^12.0.1",
+    "node-fetch": "^3.3.2",
     "pino": "^9.2.0",
     "pino-pretty": "^11.2.1",
     "slonik": "^45.6.0",

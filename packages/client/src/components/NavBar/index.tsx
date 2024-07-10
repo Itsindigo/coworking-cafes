@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex-shrink-0">
           <Link to="/" className="text-white text-lg font-semibold">
-            <SVGImage src="./src/assets/favicon.svg" />
+            <SVGImage src="/favicon.svg" />
           </Link>
         </div>
         <div className="text-white">Placeholder Title</div>

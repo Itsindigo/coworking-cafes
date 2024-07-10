@@ -20,6 +20,10 @@ interface AppConfig {
   db: {
     uri: string;
   };
+  google: {
+    clientId: string;
+    clientSecret: string;
+  };
 }
 
 let __config: AppConfig;
@@ -35,6 +39,10 @@ export const getConfig = (): AppConfig => {
     },
     db: {
       uri: getDbUri(),
+    },
+    google: {
+      clientId: env.get("GOOGLE_CLIENT_ID").required().asString(),
+      clientSecret: env.get("GOOGLE_CLIENT_SECRET").required().asString(),
     },
   };
   logger.info("Loaded and validated config. 💻");
