@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import jwt, { type JwtHeader, type SigningKeyCallback } from "jsonwebtoken";
 import { getConfig } from "../../config.js";
 import { GOOGLE_INFO } from "../../constants.js";
-import type { JWKSet, OpenIDConfiguration } from "./types.js";
+import type { OpenIDConfiguration } from "./types.js";
 
 export const createGoogleAuthService = () => {
   async function fetchGoogleOpenIdConfig(): Promise<OpenIDConfiguration> {
@@ -18,18 +18,6 @@ export const createGoogleAuthService = () => {
     return response.json() as Promise<OpenIDConfiguration>;
   }
 
-  async function fetchGoogleJwks(uri: string): Promise<JWKSet> {
-    const response = await fetch(uri, {
-      headers: { "content-type": "application/json" },
-    });
-
-    if (!response.ok) {
-      throw new Error("Could not fetch Google OpenID config.");
-    }
-
-    return response.json() as Promise<JWKSet>;
-  }
-
   async function decodeGoogleToken(token: string) {
     const config = getConfig();
     const decoded = jwt.decode(token, { complete: true, json: true });
@@ -38,7 +26,7 @@ export const createGoogleAuthService = () => {
       throw new Error("Could not decode JWT.");
     }
 
-    const { payload, header, signature } = decoded;
+    const { payload } = decoded;
 
     if (typeof payload === "string") {
       throw new Error("Expected JWT payload to be a string. Got a string.");
