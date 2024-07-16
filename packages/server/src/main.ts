@@ -29,7 +29,7 @@ async function main() {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch((err) => {
-    logger.error("Failed to start server");
+    logger.error({ err }, "Failed to start server");
     process.exit(1);
   });
 }

@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 export type OpenIDConfiguration = {
   issuer: string;
   authorization_endpoint: string;
@@ -28,3 +30,17 @@ export type JWK = {
 export type JWKSet = {
   keys: JWK[];
 };
+
+export interface GoogleJwtPayload extends jwt.JwtPayload {
+  azp: string;
+  email: string;
+  email_verified: boolean;
+  name: string;
+  picture: string;
+  given_name: string;
+  family_name: string;
+}
+
+export interface DecodedGoogleJwt extends jwt.Jwt {
+  payload: jwt.JwtPayload & GoogleJwtPayload;
+}

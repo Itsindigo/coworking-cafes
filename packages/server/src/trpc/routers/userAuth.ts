@@ -1,18 +1,31 @@
 import { TRPCError } from "@trpc/server";
-import { createGoogleAuthService } from "../../services/googleAuth/index.js";
+import logger from "../../logger.js";
 import { router, publicProcedure } from "../trpc.js";
 import { z } from "zod";
-import logger from "../../logger.js";
+import { UserSource } from "../../dao/user/index.js";
 
 export const getUserAuthRouter = () =>
   router({
-    googleAuth: publicProcedure
+    googleAuthRedirect: publicProcedure
       .input(z.object({ credential: z.string() }))
-      .mutation(async ({ input: { credential } }) => {
+      .mutation(async ({ input: { credential }, ctx: { services } }) => {
         try {
-          const googleAuthService = createGoogleAuthService();
-          const data = await googleAuthService.decodeGoogleToken(credential);
-          return data;
+          const {
+            email,
+            given_name: givenName,
+            family_name: familyName,
+          } = await services.googleAuth.decodeGoogleToken(credential);
+
+          await services.user.getOrCreateUser({
+            email,
+            givenName,
+            familyName,
+            source: UserSource.GOOGLE,
+          });
+
+          /* Create JWT */
+
+          return { email, givenName, familyName };
         } catch (err) {
           logger.error({ err }, "Failed to authenticate with Google");
           throw new TRPCError({

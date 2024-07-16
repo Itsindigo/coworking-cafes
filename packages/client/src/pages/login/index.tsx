@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { trpc } from "../../trpc";
 
 const LoginPage = (): React.JSX.Element => {
-  const mutation = trpc.userAuth.googleAuth.useMutation();
+  const mutation = trpc.userAuth.googleAuthRedirect.useMutation();
   const [errorMessage, setError] = useState<string | null>(null);
 
   const onGoogleLoginSuccess = ({ credential }: CredentialResponse) => {

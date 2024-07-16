@@ -1,12 +1,13 @@
 import Koa from "koa";
 import Router from "@koa/router";
-import { sql, type DatabasePool } from "slonik";
+import { sql } from "slonik";
+import type { KoaContext } from "../types.js";
 
-export const createHealthRouter = (app: Koa, pool: DatabasePool) => {
+export const createHealthRouter = (app: Koa) => {
   let hwRouter = new Router();
 
-  hwRouter.get("/healthz", async (ctx, next) => {
-    const [{ result }] = await pool.any(sql.unsafe`SELECT 1 as result;`);
+  hwRouter.get<any, KoaContext>("/healthz", async (ctx, next) => {
+    const [{ result }] = await ctx.db.any(sql.unsafe`SELECT 1 as result;`);
 
     if (result !== 1) {
       ctx.body = "error, could not connect to SQL database";
@@ -16,7 +17,7 @@ export const createHealthRouter = (app: Koa, pool: DatabasePool) => {
 
     ctx.body = "ok";
     ctx.status = 200;
-    next();
+    await next();
   });
 
   app.use(hwRouter.routes()).use(hwRouter.allowedMethods());

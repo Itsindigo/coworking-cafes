@@ -1,7 +1,10 @@
 const dotenv = require("dotenv");
 const env = require("env-var");
 
-dotenv.config({ path: "../../.server.env" });
+dotenv.config({
+  path: `${__dirname}/../../../.server.env`,
+  encoding: "utf-8",
+});
 
 const getDbUri = () => {
   const user = env.get("SERVER_DB_USER").required().asString();
