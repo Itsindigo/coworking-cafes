@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import logger from "../../logger.js";
-import { createGoogleAuthService } from "../../services/googleAuth/index.js";
+import { googleAuthServiceFactory } from "../../services/googleAuth/index.js";
 
 export const googleAuthRedirectMutation = async ({
   input: { credential },
@@ -8,8 +8,12 @@ export const googleAuthRedirectMutation = async ({
   input: { credential: string };
 }) => {
   try {
-    const googleAuthService = createGoogleAuthService();
+    const googleAuthService = googleAuthServiceFactory();
     const data = await googleAuthService.decodeGoogleToken(credential);
+
+    /* Get or create user */
+
+    /* Create JWT */
 
     console.log({ data });
 

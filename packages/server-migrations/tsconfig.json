@@ -1,0 +1,15 @@
+{
+  "extends": "../server/tsconfig.json",
+  "compilerOptions": {
+    // Use commonjs instead of esm when compiling the migration files
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "verbatimModuleSyntax": false,
+  },
+  "ts-node": {
+    "moduleTypes": {
+        // Change the "migrations" key here to match the path of your migrations folder
+        "migrations": "cjs"
+    }
+},
+}

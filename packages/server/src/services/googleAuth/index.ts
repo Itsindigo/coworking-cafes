@@ -5,7 +5,7 @@ import { getConfig } from "../../config.js";
 import { GOOGLE_INFO } from "../../constants.js";
 import type { OpenIDConfiguration } from "./types.js";
 
-export const createGoogleAuthService = () => {
+export const googleAuthServiceFactory = () => {
   async function fetchGoogleOpenIdConfig(): Promise<OpenIDConfiguration> {
     const response = await fetch(GOOGLE_INFO.openIdConfigUrl, {
       headers: { "content-type": "application/json" },

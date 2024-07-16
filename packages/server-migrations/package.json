@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "migrate": "DATABASE_URL=$(node scripts/db_connection.js) && node-pg-migrate up",
-    "migrate:create": "node-pg-migrate create"
+    "migrate": "DATABASE_URL=$(node scripts/db_connection.cjs) && node-pg-migrate --tsconfig ./tsconfig.json up",
+    "migrate:create": "node-pg-migrate -j ts create"
   },
   "keywords": [],
   "author": "",
