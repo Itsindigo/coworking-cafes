@@ -5,7 +5,6 @@ import { userServiceFactory } from "./services/user/index.js";
 import { googleAuthServiceFactory } from "./services/googleAuth/index.js";
 
 export interface TrpcContext {
-  db: Awaited<ReturnType<typeof createPool>>;
   services: {
     user: ReturnType<typeof userServiceFactory>;
     googleAuth: ReturnType<typeof googleAuthServiceFactory>;
@@ -20,13 +19,12 @@ export const createTrpcContext = async ({
     db: { uri },
   } = getConfig();
 
-  const db = await createPool(uri);
+  const pool = await createPool(uri);
 
-  const userService = userServiceFactory({ db });
+  const userService = userServiceFactory({ pool });
   const googleAuthService = googleAuthServiceFactory();
 
   return {
-    db,
     services: {
       user: userService,
       googleAuth: googleAuthService,

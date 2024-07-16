@@ -2,16 +2,19 @@ import { TRPCError } from "@trpc/server";
 import logger from "../../logger.js";
 import { router, publicProcedure } from "../trpc.js";
 import { z } from "zod";
-import { UserSource } from "../../types.js";
+import { UserSource } from "../../dao/user/index.js";
 
 export const getUserAuthRouter = () =>
   router({
     googleAuthRedirect: publicProcedure
       .input(z.object({ credential: z.string() }))
-      .mutation(async ({ input: { credential }, ctx: { db, services } }) => {
+      .mutation(async ({ input: { credential }, ctx: { services } }) => {
         try {
-          const { email, givenName, familyName } =
-            await services.googleAuth.decodeGoogleToken(credential);
+          const {
+            email,
+            given_name: givenName,
+            family_name: familyName,
+          } = await services.googleAuth.decodeGoogleToken(credential);
 
           await services.user.getOrCreateUser({
             email,

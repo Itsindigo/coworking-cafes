@@ -18,6 +18,12 @@ async function main() {
     await httpTerminator.terminate();
   });
 
+  /* Nodemon restart signal. */
+  process.once("SIGUSR2", async function () {
+    await httpTerminator.terminate();
+    await server.close();
+  });
+
   return server;
 }
 
