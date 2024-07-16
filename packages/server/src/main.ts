@@ -18,18 +18,12 @@ async function main() {
     await httpTerminator.terminate();
   });
 
-  /* Nodemon restart signal. */
-  process.once("SIGUSR2", async function () {
-    await httpTerminator.terminate();
-    await server.close();
-  });
-
   return server;
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch((err) => {
-    logger.error("Failed to start server");
+    logger.error({ err }, "Failed to start server");
     process.exit(1);
   });
 }
