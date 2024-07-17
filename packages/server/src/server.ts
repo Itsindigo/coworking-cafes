@@ -17,13 +17,13 @@ const createApp = async () => {
   app.use(bodyParser());
   app.use(getLoggerMiddleware());
 
-  app.use(
-    createKoaMiddleware({
+  app.use<any, KoaContext>((ctx, next) => {
+    return createKoaMiddleware({
       router: appRouter,
       prefix: "/trpc",
-      createContext: createTrpcContext,
-    })
-  );
+      createContext: (...args) => createTrpcContext(...args, ctx),
+    })(ctx, next);
+  });
 
   app.use<any, KoaContext>(async (ctx, next) => {
     const {
