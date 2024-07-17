@@ -20,7 +20,7 @@ export type AuthInfo = {
   email: string | null;
 };
 
-const blankAuthInfo: AuthInfo = {
+const placeholderAuthInfo: AuthInfo = {
   expiresAt: null,
   id: null,
   email: null,
@@ -39,7 +39,7 @@ const getInitialAuthInfo = () => {
     }
   }
 
-  return blankAuthInfo;
+  return placeholderAuthInfo;
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
