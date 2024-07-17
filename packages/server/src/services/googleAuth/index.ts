@@ -8,6 +8,7 @@ import type {
   GoogleJwtPayload,
   OpenIDConfiguration,
 } from "./types.js";
+import { JWTVerificationError } from "../../exceptions.js";
 
 export const googleAuthServiceFactory = () => {
   async function fetchGoogleOpenIdConfig(): Promise<OpenIDConfiguration> {
@@ -71,7 +72,7 @@ export const googleAuthServiceFactory = () => {
     return new Promise((resolve, reject) => {
       jwt.verify(token, getKey, (err) => {
         if (err) {
-          return reject(new Error(`Could not verify JWT: ${err.message}`));
+          return reject(new JWTVerificationError(err.message, err.stack));
         }
 
         return resolve(payload);

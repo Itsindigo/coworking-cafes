@@ -7,6 +7,7 @@ import {
   AUTH_COOKIE_NAME,
   THIRTY_DAYS_MS,
 } from "../../services/userAuth/constants.js";
+import { JWTVerificationError } from "../../exceptions.js";
 
 export const getUserAuthRouter = () =>
   router({
@@ -37,11 +38,19 @@ export const getUserAuthRouter = () =>
             });
 
             return { email, givenName, familyName };
-          } catch (err) {
+          } catch (err: any) {
             logger.error({ err }, "Failed to authenticate with Google");
+
+            if (err instanceof JWTVerificationError) {
+              throw new TRPCError({
+                code: "UNAUTHORIZED",
+                message: err.message,
+              });
+            }
+
             throw new TRPCError({
               code: "INTERNAL_SERVER_ERROR",
-              message: "An unexpected error occurred, please try again later.",
+              message: err.message,
               cause: String(err),
             });
           }
