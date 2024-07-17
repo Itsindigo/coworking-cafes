@@ -8,7 +8,6 @@ export const Route = createFileRoute("/user/logout")({
     const { logout, isLoggedIn } = useAuth();
 
     useEffect(() => {
-      console.log("logging out");
       logout();
     }, [logout]);
 
