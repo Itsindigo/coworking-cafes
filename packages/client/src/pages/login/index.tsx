@@ -1,10 +1,20 @@
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { trpc } from "../../trpc";
+import { useAuth } from "../../contexts/auth";
+import { useNavigate } from "@tanstack/react-router";
 
 const LoginPage = (): React.JSX.Element => {
   const mutation = trpc.userAuth.googleAuthRedirect.useMutation();
   const [errorMessage, setError] = useState<string | null>(null);
+  const { setAuthInfo, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate({ to: "/" });
+    }
+  }, [isLoggedIn]);
 
   const onGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
     if (!credential) {
@@ -12,7 +22,14 @@ const LoginPage = (): React.JSX.Element => {
       return;
     }
 
-    mutation.mutate({ credential });
+    mutation.mutate(
+      { credential },
+      {
+        onSuccess({ expiresAt, id, email }) {
+          setAuthInfo({ expiresAt, id, email });
+        },
+      }
+    );
   };
 
   const onGoogleLoginFail = () => {

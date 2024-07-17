@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import LinkButton from "../LinkButton";
 import SVGImage from "../SVG";
+import { useAuth } from "../../contexts/auth";
 
 export const Navbar: React.FC = () => {
+  const { isLoggedIn } = useAuth();
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -14,9 +16,15 @@ export const Navbar: React.FC = () => {
         </div>
         <div className="text-white">Placeholder Title</div>
         <div className="flex-shrink-0">
-          <LinkButton className="bg-black" to="/user/login">
-            Login
-          </LinkButton>
+          {isLoggedIn ? (
+            <LinkButton className="bg-black" to="/user/logout">
+              Logout
+            </LinkButton>
+          ) : (
+            <LinkButton className="bg-black" to="/user/login">
+              Login
+            </LinkButton>
+          )}
         </div>
       </div>
     </nav>

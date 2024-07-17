@@ -20,6 +20,9 @@ interface AppConfig {
   db: {
     uri: string;
   };
+  debug: {
+    enableStackTraceResponses: boolean;
+  };
   google: {
     clientId: string;
     clientSecret: string;
@@ -39,6 +42,12 @@ export const getConfig = (): AppConfig => {
     },
     db: {
       uri: getDbUri(),
+    },
+    debug: {
+      enableStackTraceResponses: env
+        .get("DEBUG_ENABLE_STACK_TRACE")
+        .required()
+        .asBool(),
     },
     google: {
       clientId: env.get("GOOGLE_CLIENT_ID").required().asString(),
