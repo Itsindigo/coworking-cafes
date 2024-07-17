@@ -27,17 +27,17 @@ export const Route = createRootRoute({
     );
 
     return (
-      <AuthProvider>
-        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-          <trpc.Provider client={trpcClient} queryClient={queryClient}>
-            <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+          <AuthProvider>
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               <Navbar />
               <Outlet />
               <TanStackRouterDevtools />
-            </QueryClientProvider>
-          </trpc.Provider>
-        </GoogleOAuthProvider>
-      </AuthProvider>
+            </GoogleOAuthProvider>
+          </AuthProvider>
+        </trpc.Provider>
+      </QueryClientProvider>
     );
   },
 });
