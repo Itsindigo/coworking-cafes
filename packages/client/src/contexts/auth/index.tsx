@@ -5,10 +5,12 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
+import { trpc } from "../../trpc";
 
 type IAuthContext = {
   authInfo: AuthInfo;
   setAuthInfo: (state: AuthInfo) => void;
+  logout: () => void;
   isLoggedIn: boolean;
 };
 
@@ -20,7 +22,7 @@ export type AuthInfo = {
   email: string | null;
 };
 
-const blankAuthInfo: AuthInfo = {
+const placeholderAuthInfo: AuthInfo = {
   expiresAt: null,
   id: null,
   email: null,
@@ -39,21 +41,28 @@ const getInitialAuthInfo = () => {
     }
   }
 
-  return blankAuthInfo;
+  return placeholderAuthInfo;
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const mutation = trpc.userAuth.logout.useMutation();
   const [authInfo, setAuthInfoState] = useState<AuthInfo>(getInitialAuthInfo());
 
-  const setAuthInfo = useCallback(
-    (state: AuthInfo) => {
-      localStorage.setItem("authInfo", JSON.stringify(state));
-      setAuthInfoState(state);
-    },
-    [authInfo]
-  );
+  const setAuthInfo = useCallback((state: AuthInfo) => {
+    localStorage.setItem("authInfo", JSON.stringify(state));
+    setAuthInfoState(state);
+  }, []);
+
+  const logout = useCallback(() => {
+    mutation.mutate(undefined, {
+      onSuccess() {
+        localStorage.removeItem("authInfo");
+        setAuthInfoState(placeholderAuthInfo);
+      },
+    });
+  }, []);
 
   const isLoggedIn = useMemo(
     () =>
@@ -62,7 +71,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   return (
-    <AuthContext.Provider value={{ authInfo, setAuthInfo, isLoggedIn }}>
+    <AuthContext.Provider value={{ authInfo, setAuthInfo, isLoggedIn, logout }}>
       {children}
     </AuthContext.Provider>
   );

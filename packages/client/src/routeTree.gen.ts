@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UserSignupImport } from './routes/user.signup'
+import { Route as UserLogoutImport } from './routes/user.logout'
 import { Route as UserLoginImport } from './routes/user.login'
 import { Route as LocationCreateImport } from './routes/location.create'
 
@@ -36,6 +37,11 @@ const IndexLazyRoute = IndexLazyImport.update({
 
 const UserSignupRoute = UserSignupImport.update({
   path: '/user/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UserLogoutRoute = UserLogoutImport.update({
+  path: '/user/logout',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +87,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserLoginImport
       parentRoute: typeof rootRoute
     }
+    '/user/logout': {
+      id: '/user/logout'
+      path: '/user/logout'
+      fullPath: '/user/logout'
+      preLoaderRoute: typeof UserLogoutImport
+      parentRoute: typeof rootRoute
+    }
     '/user/signup': {
       id: '/user/signup'
       path: '/user/signup'
@@ -98,6 +111,7 @@ export const routeTree = rootRoute.addChildren({
   AboutLazyRoute,
   LocationCreateRoute,
   UserLoginRoute,
+  UserLogoutRoute,
   UserSignupRoute,
 })
 
@@ -113,6 +127,7 @@ export const routeTree = rootRoute.addChildren({
         "/about",
         "/location/create",
         "/user/login",
+        "/user/logout",
         "/user/signup"
       ]
     },
@@ -127,6 +142,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/user/login": {
       "filePath": "user.login.tsx"
+    },
+    "/user/logout": {
+      "filePath": "user.logout.tsx"
     },
     "/user/signup": {
       "filePath": "user.signup.tsx"
