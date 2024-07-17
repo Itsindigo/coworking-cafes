@@ -6,6 +6,7 @@ import { httpBatchLink } from "@trpc/react-query";
 import { trpc } from "../trpc";
 import { Navbar, TanStackRouterDevtools } from "../components";
 import { GOOGLE_CLIENT_ID } from "../constants";
+import { AuthProvider } from "../contexts/auth";
 
 export const Route = createRootRoute({
   component: () => {
@@ -26,18 +27,17 @@ export const Route = createRootRoute({
     );
 
     return (
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <trpc.Provider client={trpcClient} queryClient={queryClient}>
-          <QueryClientProvider client={queryClient}>
-            <Navbar />
-            {/* <div className="p-2 flex justify-end gap-2">
-              <LinkButton to="/">Sign In</LinkButton>
-              </div> */}
-            <Outlet />
-            <TanStackRouterDevtools />
-          </QueryClientProvider>
-        </trpc.Provider>
-      </GoogleOAuthProvider>
+      <AuthProvider>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <trpc.Provider client={trpcClient} queryClient={queryClient}>
+            <QueryClientProvider client={queryClient}>
+              <Navbar />
+              <Outlet />
+              <TanStackRouterDevtools />
+            </QueryClientProvider>
+          </trpc.Provider>
+        </GoogleOAuthProvider>
+      </AuthProvider>
     );
   },
 });

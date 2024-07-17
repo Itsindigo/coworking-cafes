@@ -8,6 +8,7 @@ import {
   THIRTY_DAYS_MS,
 } from "../../services/userAuth/constants.js";
 import { JWTVerificationError } from "../../exceptions.js";
+import { toUnix } from "../../utils/datetime.js";
 
 export const getUserAuthRouter = () =>
   router({
@@ -22,22 +23,28 @@ export const getUserAuthRouter = () =>
               family_name: familyName,
             } = await services.googleAuth.decodeGoogleToken(credential);
 
-            await services.user.getOrCreateUser({
+            const { id } = await services.user.getOrCreateUser({
               email,
               givenName,
               familyName,
               source: UserSource.GOOGLE,
             });
 
-            const jwt = services.userAuth.createAuthToken({ email });
-
-            cookies.set(AUTH_COOKIE_NAME, jwt, {
-              httpOnly: true,
-              secure: false,
-              maxAge: THIRTY_DAYS_MS,
+            const { token, expiresAt } = services.userAuth.createAuthToken({
+              email,
             });
 
-            return { email, givenName, familyName };
+            cookies.set(AUTH_COOKIE_NAME, token, {
+              httpOnly: true,
+              secure: false,
+              expires: expiresAt,
+            });
+
+            return {
+              email,
+              id,
+              expiresAt: toUnix(expiresAt),
+            };
           } catch (err: any) {
             logger.error({ err }, "Failed to authenticate with Google");
 
