@@ -31,20 +31,22 @@ export const googleAuthServiceFactory = () => {
     }) as DecodedGoogleJwt;
 
     if (!decoded) {
-      throw new Error("Could not decode JWT.");
+      throw new JWTVerificationError("Could not decode JWT.");
     }
 
     const { payload } = decoded;
 
     if (typeof payload === "string") {
-      throw new Error("Expected JWT payload to be a string. Got a string.");
+      throw new JWTVerificationError(
+        "Expected JWT payload to be a valid JSON object. Got a string."
+      );
     }
 
     if (
       payload.aud !== config.google.clientId ||
       payload.iss !== GOOGLE_INFO.jwtIssuer
     ) {
-      throw new Error("Id token is not valid");
+      throw new JWTVerificationError("Id token is not valid");
     }
 
     const { jwks_uri: jwksUri } = await fetchGoogleOpenIdConfig();
