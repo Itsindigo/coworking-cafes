@@ -1,4 +1,5 @@
-import { router, publicProcedure } from "../trpc.js";
+import { router } from "../trpc.js";
+import { publicProcedure } from "../procedures/public.js";
 import { z } from "zod";
 import {
   googleAuthRedirectMutation,
