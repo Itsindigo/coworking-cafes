@@ -25,7 +25,7 @@ export const googleAuthRedirectMutation = async ({
       family_name: familyName,
     } = await services.googleAuth.decodeGoogleToken(credential);
 
-    const { id } = await services.user.getOrCreateUser({
+    const { id, username } = await services.user.getOrCreateUser({
       email,
       givenName,
       familyName,
@@ -43,6 +43,7 @@ export const googleAuthRedirectMutation = async ({
     });
 
     return {
+      username,
       email,
       id,
       expiresAt: toUnix(expiresAt),
