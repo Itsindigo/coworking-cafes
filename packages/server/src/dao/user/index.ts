@@ -13,6 +13,7 @@ export interface FindUserOptions {
 const userObject = z.object({
   id: z.string(),
   email: z.string(),
+  username: z.string(),
   givenName: z.string().optional(),
   familyName: z.string().optional(),
   source: z.string(),
@@ -31,6 +32,7 @@ export const findUser = async (
       SELECT
         id,
         email,
+        username,
         given_name as "givenName",
         family_name as "familyName",
         source,
@@ -49,15 +51,17 @@ export const createUser = async (
 ): Promise<User> => {
   const [record] = await connection.any<typeof userObject>(
     sql.type(userObject)`
-      INSERT INTO "user" (email, given_name, family_name, source)
+      INSERT INTO "user" (email, username, given_name, family_name, source)
       VALUES (
         ${user.email},
+        ${user.username},
         ${user.givenName ?? null},
         ${user.familyName ?? null},
         ${user.source}
       ) RETURNING
         id,
         email,
+        username,
         given_name as "givenName",
         family_name as "familyName",
         source,

@@ -5,6 +5,7 @@ import {
   type User,
 } from "../../dao/user/index.js";
 import type { DatabasePool } from "slonik";
+import type { usernameServiceFactory } from "../username/index.js";
 
 export interface GetOrCreateUserOptions {
   givenName?: string;
@@ -19,8 +20,10 @@ export interface UserService {
 
 export const userServiceFactory = ({
   pool,
+  usernameService,
 }: {
   pool: DatabasePool;
+  usernameService: ReturnType<typeof usernameServiceFactory>;
 }): UserService => {
   const getOrCreateUser = async ({
     givenName,
@@ -35,6 +38,7 @@ export const userServiceFactory = ({
       }
 
       return await createUser(connection, {
+        username: usernameService.generateUsername(),
         givenName,
         familyName,
         email,
