@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "prettier": "prettier --write ."
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.14.9",
     "prettier": "3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.5",
     "typescript": "^5.5.3"
   }
 }
