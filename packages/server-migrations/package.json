@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "migrate": "DATABASE_URL=$(node scripts/db_connection.cjs) && node-pg-migrate --tsconfig ./tsconfig.json up",
-    "migrate:create": "node-pg-migrate -j ts create"
+    "migrate:create": "node-pg-migrate -j ts create",
+    "prettier": "prettier --write \"migrations/**/*.ts\" --config .prettierrc"
   },
   "keywords": [],
   "author": "",

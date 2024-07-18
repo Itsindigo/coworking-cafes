@@ -7,12 +7,14 @@ import { googleAuthServiceFactory } from "./services/googleAuth/index.js";
 import { userAuthServiceFactory } from "./services/userAuth/index.js";
 import type { ServerResponse, IncomingMessage } from "http";
 import type { KoaContext } from "./types.js";
+import { usernameServiceFactory } from "./services/username/index.js";
 
 export interface TrpcContext {
   req: IncomingMessage;
   res: ServerResponse<IncomingMessage>;
   services: {
     user: ReturnType<typeof userServiceFactory>;
+    username: ReturnType<typeof usernameServiceFactory>;
     userAuth: ReturnType<typeof userAuthServiceFactory>;
     googleAuth: ReturnType<typeof googleAuthServiceFactory>;
   };
@@ -29,13 +31,15 @@ export const createTrpcContext = async (
 
   const pool = await createPool(uri);
 
-  const userService = userServiceFactory({ pool });
+  const usernameService = usernameServiceFactory();
+  const userService = userServiceFactory({ pool, usernameService });
   const googleAuthService = googleAuthServiceFactory();
   const userAuthService = userAuthServiceFactory();
 
   return {
     services: {
       user: userService,
+      username: usernameService,
       userAuth: userAuthService,
       googleAuth: googleAuthService,
     },
