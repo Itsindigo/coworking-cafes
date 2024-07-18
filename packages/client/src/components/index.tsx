@@ -4,3 +4,4 @@ export { HeroBanner } from "./HeroBanner";
 export { LinkButton } from "./LinkButton";
 export { TextLink } from "./TextLink";
 export { Navbar } from "./NavBar";
+export { ProfileMenu } from "./ProfileMenu";

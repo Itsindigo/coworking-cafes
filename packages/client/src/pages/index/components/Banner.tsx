@@ -5,7 +5,7 @@ export const IndexBanner = () => (
   <HeroBanner
     Header={
       <HighContrastText
-        classNames="mt-16 ml-8 md:mt-32 md:ml-32 mr-8 text-xl"
+        classNames="mt-16 ml-8 md:mt-16 md:ml-32 mr-8 text-xl"
         text="Don't disrupt your flow."
       />
     }

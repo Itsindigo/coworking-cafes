@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import LinkButton from "../LinkButton";
+import ProfileMenu from "../ProfileMenu";
 import SVGImage from "../SVG";
 import { useAuth } from "../../contexts/auth";
 
@@ -17,9 +18,7 @@ export const Navbar: React.FC = () => {
         <div className="text-white">Placeholder Title</div>
         <div className="flex-shrink-0">
           {isLoggedIn ? (
-            <LinkButton className="bg-black" to="/user/logout">
-              Logout
-            </LinkButton>
+            <ProfileMenu />
           ) : (
             <LinkButton className="bg-black" to="/user/login">
               Login
