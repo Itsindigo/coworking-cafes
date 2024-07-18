@@ -22,7 +22,7 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
   await pgm.addConstraint(
     "user",
     "source_check",
-    "CHECK (source IN ('GOOGLE', 'USER_EMAIL'))"
+    "CHECK (source IN ('GOOGLE', 'USER_EMAIL'))",
   );
 }
 

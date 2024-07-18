@@ -9,14 +9,14 @@ export const Navbar: React.FC = () => {
   const { isLoggedIn } = useAuth();
   return (
     <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex-shrink-0">
-          <Link to="/" className="text-white text-lg font-semibold">
+      <div className="container mx-auto flex items-center justify-between">
+        <div className="shrink-0">
+          <Link to="/" className="text-lg font-semibold text-white">
             <SVGImage src="/favicon.svg" />
           </Link>
         </div>
         <div className="text-white">Placeholder Title</div>
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           {isLoggedIn ? (
             <ProfileMenu />
           ) : (

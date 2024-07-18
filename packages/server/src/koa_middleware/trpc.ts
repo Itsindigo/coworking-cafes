@@ -39,7 +39,7 @@ export type CreateKoaMiddlewareOptions<TRouter extends AnyTRPCRouter> =
 
 export const createKoaMiddleware =
   <TRouter extends AnyTRPCRouter>(
-    opts: CreateKoaMiddlewareOptions<TRouter>
+    opts: CreateKoaMiddlewareOptions<TRouter>,
   ): Middleware =>
   async (ctx, next) => {
     const { prefix } = opts;

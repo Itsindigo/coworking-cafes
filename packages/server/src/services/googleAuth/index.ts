@@ -38,7 +38,7 @@ export const googleAuthServiceFactory = () => {
 
     if (typeof payload === "string") {
       throw new JWTVerificationError(
-        "Expected JWT payload to be a valid JSON object. Got a string."
+        "Expected JWT payload to be a valid JSON object. Got a string.",
       );
     }
 

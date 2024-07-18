@@ -14,7 +14,9 @@ type IAuthContext = {
   isLoggedIn: boolean;
 };
 
-const AuthContext = createContext<IAuthContext>(undefined as any);
+const AuthContext = createContext<IAuthContext>(
+  undefined as unknown as IAuthContext,
+);
 
 export type AuthInfo = {
   expiresAt: number | null;
@@ -67,7 +69,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const isLoggedIn = useMemo(
     () =>
       !!authInfo.expiresAt && new Date().getTime() / 1000 < authInfo.expiresAt,
-    [authInfo.expiresAt]
+    [authInfo.expiresAt],
   );
 
   return (

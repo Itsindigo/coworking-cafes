@@ -1,7 +1,4 @@
-
-
-
-# Start 
+# Start
 
 `pnpm install`
 
@@ -23,6 +20,6 @@ $ docker-compose --env-file .server.env up -d
 Client: `http://localhost:5173/`
 
 Server: `http://localhost:4444/`
-  -  Hit TRPC endpoint: `curl -X GET "http://localhost:4444/trpc/userList" -H 'content-type: application/json'`
--  
 
+- Hit TRPC endpoint: `curl -X GET "http://localhost:4444/trpc/userList" -H 'content-type: application/json'`
+-

@@ -4,12 +4,12 @@
     // Use commonjs instead of esm when compiling the migration files
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "verbatimModuleSyntax": false,
+    "verbatimModuleSyntax": false
   },
   "ts-node": {
     "moduleTypes": {
-        // Change the "migrations" key here to match the path of your migrations folder
-        "migrations": "cjs"
+      // Change the "migrations" key here to match the path of your migrations folder
+      "migrations": "cjs"
     }
-},
+  }
 }

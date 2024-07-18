@@ -24,7 +24,7 @@ export type User = z.infer<typeof userObject>;
 
 export const findUser = async (
   connection: DatabaseConnection,
-  { email }: FindUserOptions
+  { email }: FindUserOptions,
 ): Promise<User | null> => {
   const [record] = await connection.any<typeof userObject>(
     sql.type(userObject)`
@@ -37,7 +37,7 @@ export const findUser = async (
         created_at as "createdAt",
         updated_at as "updatedAt"
       FROM "user"
-      WHERE email = ${email}`
+      WHERE email = ${email}`,
   );
 
   return record ?? null;
@@ -45,7 +45,7 @@ export const findUser = async (
 
 export const createUser = async (
   connection: DatabaseConnection,
-  user: Omit<User, "id" | "createdAt" | "updatedAt">
+  user: Omit<User, "id" | "createdAt" | "updatedAt">,
 ): Promise<User> => {
   const [record] = await connection.any<typeof userObject>(
     sql.type(userObject)`
@@ -63,7 +63,7 @@ export const createUser = async (
         source,
         created_at as "createdAt",
         updated_at as "updatedAt"
-    `
+    `,
   );
 
   if (!record) {

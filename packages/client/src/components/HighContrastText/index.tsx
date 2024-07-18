@@ -10,7 +10,7 @@ export const HighContrastText: React.FC<HighContrastTextProps> = ({
   classNames,
 }) => {
   return (
-    <div className={`p-2 bg-black text-white font-sans ${classNames}`}>
+    <div className={`bg-black p-2 font-sans text-white ${classNames}`}>
       {text}
     </div>
   );

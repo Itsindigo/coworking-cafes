@@ -14,7 +14,7 @@ const LoginPage = (): React.JSX.Element => {
     if (isLoggedIn) {
       navigate({ to: "/" });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigate]);
 
   const onGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
     if (!credential) {
@@ -28,7 +28,7 @@ const LoginPage = (): React.JSX.Element => {
         onSuccess({ expiresAt, id, email }) {
           setAuthInfo({ expiresAt, id, email });
         },
-      }
+      },
     );
   };
 

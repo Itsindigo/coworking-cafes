@@ -23,7 +23,7 @@ export const Route = createRootRoute({
             },
           }),
         ],
-      })
+      }),
     );
 
     return (

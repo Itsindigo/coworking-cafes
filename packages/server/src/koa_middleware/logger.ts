@@ -16,6 +16,6 @@ export const getLoggerMiddleware = (): Middleware => {
         res: {},
       }),
     },
-    process.stdout
+    process.stdout,
   );
 };

@@ -15,7 +15,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
 }) => {
   return (
     <div
-      className={`w-full flex flex-col items-start text-start bg-cover bg-center ${classNames}`}
+      className={`flex w-full flex-col items-start bg-cover bg-center text-start ${classNames}`}
       style={
         backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : {}
       }

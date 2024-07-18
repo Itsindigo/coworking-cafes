@@ -21,7 +21,7 @@ export interface TrpcContext {
 
 export const createTrpcContext = async (
   ctx: CreateTrpcKoaContextOptions,
-  { req, res, cookies }: KoaContext
+  { req, res, cookies }: KoaContext,
 ): Promise<TrpcContext> => {
   const {
     db: { uri },
