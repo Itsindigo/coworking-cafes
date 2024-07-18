@@ -7,8 +7,8 @@ interface HighContrastTextProps {
 
 export const HighContrastText: React.FC<HighContrastTextProps> = ({
   text,
-  classNames,
-}) => {
+  classNames = "",
+}: HighContrastTextProps) => {
   return (
     <div className={`bg-black p-2 font-sans text-white ${classNames}`}>
       {text}

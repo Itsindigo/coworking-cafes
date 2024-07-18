@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec NODE_NO_WARNINGS=1 node --loader ts-node/esm src/main.ts --project ./tsconfig.json",
-    "prettier": "prettier --write \"src/**/*.ts\" --config .prettierrc"
+    "prettier": "prettier --write \"src/**/*.ts\" --config .prettierrc",
+    "test": "vitest run --reporter=dot",
+    "bench": "vitest bench --run"
   },
   "keywords": [],
   "author": "",
