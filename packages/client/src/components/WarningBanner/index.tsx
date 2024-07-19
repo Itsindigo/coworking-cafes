@@ -3,11 +3,11 @@ import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export enum WarningReasons {
-  UNAUTHORIZED = "unauthorized",
+  UNAUTH_REDIR = "unauth-redir",
 }
 
 const WARNING_MESSAGES: Record<WarningReasons, (string) => string> = {
-  [WarningReasons.UNAUTHORIZED]: (prev = "that page") =>
+  [WarningReasons.UNAUTH_REDIR]: (prev = "the previous page") =>
     `Login to access ${prev}.`,
 };
 
@@ -27,7 +27,9 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({
         className="h-6 w-6 text-yellow-700 mr-3"
       />
       <div>
-        {reason === "unauthorized" && <p>{WARNING_MESSAGES[reason](prev)}</p>}
+        {reason === WarningReasons.UNAUTH_REDIR && (
+          <p>{WARNING_MESSAGES[reason](prev)}</p>
+        )}
       </div>
     </div>
   );

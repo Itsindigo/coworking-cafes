@@ -30,7 +30,7 @@ export const Route = createFileRoute("/user/settings")({
         <Navigate
           to="/user/login"
           search={{
-            warning: WarningReasons.UNAUTHORIZED,
+            wa: WarningReasons.UNAUTH_REDIR,
             prev: "the user settings page",
           }}
         />

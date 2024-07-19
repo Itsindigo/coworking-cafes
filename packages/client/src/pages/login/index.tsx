@@ -4,10 +4,10 @@ import { trpc } from "../../trpc";
 import { useAuth } from "../../contexts/auth";
 import { useNavigate } from "@tanstack/react-router";
 import { Route } from "../../routes/user.login";
-import { WarningBanner } from "../../components/WarningBanner";
+import { WarningBanner, WarningReasons } from "../../components/WarningBanner";
 
 const LoginPage = (): React.JSX.Element => {
-  const { warning, prev } = Route.useSearch();
+  const { wa: warning, prev } = Route.useSearch();
   const mutation = trpc.userAuth.googleAuthRedirect.useMutation();
   const [errorMessage, setError] = useState<string | null>(null);
   const { setAuthInfo, isLoggedIn } = useAuth();
@@ -46,7 +46,7 @@ const LoginPage = (): React.JSX.Element => {
           <p className="mb-4 text-center">
             Get started by logging in with Google and join the fun!
           </p>
-          {warning === "unauthorized" && (
+          {warning === WarningReasons.UNAUTH_REDIR && (
             <WarningBanner reason={warning} prev={prev} />
           )}
           {mutation.isPending ? (
