@@ -8,11 +8,6 @@ export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: "http://localhost:4444/trpc",
-      async headers() {
-        return {
-          // Todo
-        };
-      },
       fetch(url, options) {
         return fetch(url, {
           ...options,
