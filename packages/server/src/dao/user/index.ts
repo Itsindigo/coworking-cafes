@@ -1,4 +1,9 @@
-import { sql, type DatabaseConnection } from "slonik";
+import {
+  sql,
+  type DatabaseConnection,
+  type FragmentSqlToken,
+  createSqlTokenSqlFragment,
+} from "slonik";
 import { z } from "zod";
 
 export enum UserSource {
@@ -6,9 +11,10 @@ export enum UserSource {
   USER_EMAIL = "USER_EMAIL",
 }
 
-export interface FindUserOptions {
-  email: string;
-}
+export type FindUserOptions = {
+  email?: string;
+  id?: string;
+};
 
 const userObject = z.object({
   id: z.string(),
@@ -25,8 +31,22 @@ export type User = z.infer<typeof userObject>;
 
 export const findUser = async (
   connection: DatabaseConnection,
-  { email }: FindUserOptions,
+  { email, id }: FindUserOptions,
 ): Promise<User | null> => {
+  if (!email && !id) {
+    throw new Error("Cannot query user without either email or id");
+  }
+
+  let whereFragment: FragmentSqlToken = sql.fragment``;
+
+  if (email && id) {
+    whereFragment = sql.fragment`WHERE email = ${email} AND id = ${id}`;
+  } else if (email) {
+    whereFragment = sql.fragment`WHERE email = ${email}`;
+  } else if (id) {
+    whereFragment = sql.fragment`WHERE id = ${id}`;
+  }
+
   const [record] = await connection.any<typeof userObject>(
     sql.type(userObject)`
       SELECT
@@ -39,7 +59,7 @@ export const findUser = async (
         created_at as "createdAt",
         updated_at as "updatedAt"
       FROM "user"
-      WHERE email = ${email}`,
+      ${whereFragment}`,
   );
 
   return record ?? null;
@@ -76,3 +96,5 @@ export const createUser = async (
 
   return record;
 };
+
+export default { findUser, createUser };
