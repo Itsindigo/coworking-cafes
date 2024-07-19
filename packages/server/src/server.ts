@@ -5,7 +5,7 @@ import { createKoaMiddleware } from "./koa_middleware/trpc.js";
 import { appRouter } from "./trpc/server.js";
 import { createHealthRouter } from "./routers/health.js";
 import { getLoggerMiddleware } from "./koa_middleware/logger.js";
-import { createTrpcContext } from "./context.js";
+import { createTrpcContext } from "./trpc/context.js";
 import { createPool } from "slonik";
 import { getConfig } from "./config.js";
 import type { KoaContext } from "./types.js";
@@ -13,7 +13,12 @@ import type { KoaContext } from "./types.js";
 const createApp = async () => {
   const app = new Koa();
 
-  app.use(cors());
+  app.use(
+    cors({
+      origin: "http://localhost:5173", // replace with your client origin
+      credentials: true,
+    }),
+  );
   app.use(bodyParser());
   app.use(getLoggerMiddleware());
 

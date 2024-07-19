@@ -1,15 +1,15 @@
-import * as Cookies from "cookies";
+import type { ICookies } from "cookies";
 import { createPool } from "slonik";
-import { type CreateTrpcKoaContextOptions } from "./koa_middleware/trpc.js";
-import { getConfig } from "./config.js";
-import { userServiceFactory } from "./services/user/index.js";
-import { googleAuthServiceFactory } from "./services/googleAuth/index.js";
-import { userAuthServiceFactory } from "./services/userAuth/index.js";
+import { type CreateTrpcKoaContextOptions } from "../koa_middleware/trpc.js";
+import { getConfig } from "../config.js";
+import { userServiceFactory } from "../services/user/index.js";
+import { googleAuthServiceFactory } from "../services/googleAuth/index.js";
+import { userAuthServiceFactory } from "../services/userAuth/index.js";
 import type { ServerResponse, IncomingMessage } from "http";
-import type { KoaContext } from "./types.js";
-import { usernameServiceFactory } from "./services/username/index.js";
+import type { KoaContext } from "../types.js";
+import { usernameServiceFactory } from "../services/username/index.js";
 
-export interface TrpcContext {
+export type TrpcContext = {
   req: IncomingMessage;
   res: ServerResponse<IncomingMessage>;
   services: {
@@ -18,8 +18,8 @@ export interface TrpcContext {
     userAuth: ReturnType<typeof userAuthServiceFactory>;
     googleAuth: ReturnType<typeof googleAuthServiceFactory>;
   };
-  cookies: Cookies;
-}
+  cookies: ICookies;
+};
 
 export const createTrpcContext = async (
   ctx: CreateTrpcKoaContextOptions,

@@ -7,7 +7,7 @@ export const ProfileMenu: React.FC = () => {
   const navLinks = [
     {
       title: "Settings",
-      url: "#",
+      url: "/user/settings",
     },
     {
       title: "Logout",
