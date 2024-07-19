@@ -3,9 +3,7 @@ import { Route } from "../../routes/user.settings";
 
 export const UserSettingsPage: React.FC = () => {
   const {
-    me: {
-      user: { email, id, username },
-    },
+    user: { email, id, username },
   } = Route.useLoaderData({
     select: (data) => {
       return data;

@@ -12,10 +12,10 @@ export const Route = createFileRoute("/user/settings")({
       client: trpcClient,
     });
 
-    const me = await clientUtils.user.getMe.ensureData();
+    const { user } = await clientUtils.user.getMe.ensureData();
 
     return {
-      me,
+      user,
     };
   },
 });
