@@ -5,7 +5,7 @@ import { authedProcedure } from "../procedures/authed.js";
 
 export const getMeProcedure = authedProcedure.input(z.void());
 
-export const getUserAuthRouter = () =>
+export const getUserRouter = () =>
   router({
     getMe: getMeProcedure.query(getMeQuery),
   });

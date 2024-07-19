@@ -34,12 +34,15 @@ export const googleAuthRedirectMutation = async ({
 
     const { token, expiresAt } = services.userAuth.createAuthToken({
       email,
+      username,
+      id,
     });
 
     cookies.set(AUTH_COOKIE_NAME, token, {
       httpOnly: true,
       secure: false,
       expires: expiresAt,
+      sameSite: "lax",
     });
 
     return {

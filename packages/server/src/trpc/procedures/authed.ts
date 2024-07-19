@@ -16,13 +16,14 @@ export const authedProcedure = publicProcedure.use(async function (opts) {
 
     const jwt = ctx.services.userAuth.verifyAuthToken(token);
 
-    console.log({ jwt });
-
     return opts.next({
       ctx: {
         ...ctx,
-
-        isAuthed: true,
+        user: {
+          email: jwt.email,
+          username: jwt.username,
+          id: jwt.id,
+        },
       },
     });
   } catch {

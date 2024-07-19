@@ -13,7 +13,12 @@ import type { KoaContext } from "./types.js";
 const createApp = async () => {
   const app = new Koa();
 
-  app.use(cors());
+  app.use(
+    cors({
+      origin: "http://localhost:5173", // replace with your client origin
+      credentials: true,
+    }),
+  );
   app.use(bodyParser());
   app.use(getLoggerMiddleware());
 
