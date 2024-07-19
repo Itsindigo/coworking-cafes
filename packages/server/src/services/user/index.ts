@@ -1,9 +1,4 @@
-import {
-  createUser,
-  findUser,
-  UserSource,
-  type User,
-} from "../../dao/user/index.js";
+import UserDAO, { UserSource, type User } from "../../dao/user/index.js";
 import type { DatabasePool } from "slonik";
 import type { usernameServiceFactory } from "../username/index.js";
 
@@ -16,6 +11,7 @@ export interface GetOrCreateUserOptions {
 
 export interface UserService {
   getOrCreateUser: (options: GetOrCreateUserOptions) => Promise<User>;
+  findUserById: (id: string) => Promise<User | null>;
 }
 
 export const userServiceFactory = ({
@@ -31,13 +27,13 @@ export const userServiceFactory = ({
     email,
   }: GetOrCreateUserOptions): Promise<User> => {
     return await pool.connect(async (connection) => {
-      const user = await findUser(connection, { email });
+      const user = await UserDAO.findUser(connection, { email });
 
       if (user) {
         return user;
       }
 
-      return await createUser(connection, {
+      return await UserDAO.createUser(connection, {
         username: usernameService.generateUsername(),
         givenName,
         familyName,
@@ -47,7 +43,20 @@ export const userServiceFactory = ({
     });
   };
 
+  const findUserById = async (id: string): Promise<User | null> => {
+    return await pool.connect(async (connection) => {
+      const user = await UserDAO.findUser(connection, { id });
+
+      if (user) {
+        return user;
+      }
+
+      return null;
+    });
+  };
+
   return {
+    findUserById,
     getOrCreateUser,
   };
 };
